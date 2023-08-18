@@ -8,21 +8,21 @@ package ca.sheridancollege.project;
  *
  * @author Adeem
  */
-class WarCard extends Card {
-    protected Card.Suit suit;
-    protected Card.Rank rank;
+public class WarCard extends Card {
+    private Suit suit;
+    private Rank rank;
 
-    public WarCard(Card.Suit suit, Card.Rank rank) {
+    public WarCard(Suit suit, Rank rank) {
         this.suit = suit;
         this.rank = rank;
+    }
+
+    public Rank getRank() {
+        return rank;
     }
 
     @Override
     public String toString() {
         return rank + " of " + suit;
-    }
-
-    public Card.Rank getRank() {
-        return rank;
     }
 }

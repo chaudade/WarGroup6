@@ -4,6 +4,8 @@
  */
 package ca.sheridancollege.project;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Adeem
@@ -31,34 +33,73 @@ public class WarGame extends Game {
 
     @Override
     public void play() {
-        while(player1.getHandSize() > 0 && player2.getHandSize() > 0) {
+        Scanner scanner = new Scanner(System.in);
+        String response;
+
+        do {
             WarCard card1 = player1.playCard();
             WarCard card2 = player2.playCard();
-            
+            System.out.println(player1.getName() + " plays " + card1);
+            System.out.println(player2.getName() + " plays " + card2);
+
             if (card1.getRank().getCardValue() > card2.getRank().getCardValue()) {
                 player1.receiveCard(card1);
                 player1.receiveCard(card2);
+                System.out.println(player1.getName() + " wins this round.");
             } else if (card1.getRank().getCardValue() < card2.getRank().getCardValue()) {
                 player2.receiveCard(card1);
                 player2.receiveCard(card2);
+                System.out.println(player2.getName() + " wins this round.");
             } else {
-                // Handle the war logic here.
-                // For brevity, I'm skipping it but it will involve drawing multiple cards from each player and comparing.
-            }
-        }
+                // Handle the war logic here
+                System.out.println("It's a war!");
 
-        declareWinner();
+                // For simplicity, let's just draw one more card for the war
+                WarCard warCard1 = player1.playCard();
+                WarCard warCard2 = player2.playCard();
+
+                if (warCard1.getRank().getCardValue() > warCard2.getRank().getCardValue()) {
+                    player1.receiveCard(card1);
+                    player1.receiveCard(card2);
+                    player1.receiveCard(warCard1);
+                    player1.receiveCard(warCard2);
+                    System.out.println(player1.getName() + " wins the war.");
+                } else if (warCard1.getRank().getCardValue() < warCard2.getRank().getCardValue()) {
+                    player2.receiveCard(card1);
+                    player2.receiveCard(card2);
+                    player2.receiveCard(warCard1);
+                    player2.receiveCard(warCard2);
+                    System.out.println(player2.getName() + " wins the war.");
+                } else {
+                    // Cards remain on the table and are lost if there's another tie.
+                    System.out.println("War is tied. Cards are lost.");
+                }
+            }
+
+            declareWinner();
+
+            System.out.println("Do you want to play another round? (yes/no)");
+            response = scanner.nextLine().toLowerCase();
+
+            if (response.equals("yes")) {
+                deck = new Deck();  // Reset the deck
+                deck.shuffle();     // Shuffle the cards
+                dealCards();        // Deal the cards again
+            }
+
+        } while (response.equals("yes"));
+
+        System.out.println("Thanks for playing!");
     }
 
     @Override
     public void declareWinner() {
         if(player1.getHandSize() > player2.getHandSize()) {
-            System.out.println(player1.getName() + " wins!");
+            System.out.println(player1.getName() + " is leading!");
         } else if(player1.getHandSize() < player2.getHandSize()) {
-            System.out.println(player2.getName() + " wins!");
+            System.out.println(player2.getName() + " is leading!");
         } else {
-            System.out.println("It's a draw!");
+            System.out.println("Both players are tied!");
         }
     }
 }
-

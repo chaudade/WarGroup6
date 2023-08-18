@@ -16,22 +16,13 @@ import java.util.Collections;
  * @author Paul Bonenfant Jan 2020
  */
 public class GroupOfCards {
-
-    //The group of cards, stored in an ArrayList
     protected ArrayList<Card> cards;
-    protected int size;//the size of the grouping
+    protected int size;
 
     public GroupOfCards(int size) {
         this.size = size;
-        this.cards = new ArrayList<>();
     }
 
-
-    /**
-     * A method that will get the group of cards as an ArrayList
-     *
-     * @return the group of cards.
-     */
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -40,19 +31,12 @@ public class GroupOfCards {
         Collections.shuffle(cards);
     }
 
-    /**
-     * @return the size of the group of cards
-     */
     public int getSize() {
         return cards.size();
     }
 
-    /**
-     * @param size the max size for the group of cards
-     */
     public void setSize(int size) {
         this.size = size;
     }
-
-}//end class
+}
 

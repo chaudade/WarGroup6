@@ -26,9 +26,9 @@ public class Deck extends GroupOfCards {
 
     public WarCard draw() {
         if (!cards.isEmpty()) {
-            return (WarCard) cards.remove(0); // Assuming the top of the deck is the beginning of the list
+            return (WarCard) cards.remove(0);
         } else {
-            return null; // Or throw an exception if you prefer
+            return null;
         }
     }
 }
